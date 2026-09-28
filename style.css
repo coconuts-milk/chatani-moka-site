@@ -1,0 +1,326 @@
+:root {
+  --background: #fff7f0;
+  --cream: #fffdf9;
+  --milk: #ffffff;
+  --latte: #ffe1cc;
+  --caramel: #d89062;
+  --coffee: #8a4b2a;
+  --espresso: #3a2416;
+  --muted: #755f53;
+  --line: #f1d8c7;
+  --shadow: 0 14px 32px rgba(88, 49, 29, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  background: var(--background);
+  color: var(--espresso);
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header {
+  padding: 40px 24px 34px;
+  text-align: center;
+  background: var(--latte);
+  border-bottom: 1px solid #f2ceb8;
+}
+
+.header-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.site-logo {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.logo-cup {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  color: var(--coffee);
+  font-size: 34px;
+  background: rgba(255, 255, 255, 0.52);
+  border-radius: 50%;
+}
+
+.tagline {
+  margin: 10px 0 0;
+  color: var(--coffee);
+  font-size: 0.98rem;
+  letter-spacing: 0.08em;
+}
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: clamp(12px, 4vw, 42px);
+  padding: 16px 20px;
+  background: rgba(255, 253, 249, 0.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+
+.site-nav a {
+  padding: 4px 3px;
+  color: var(--coffee);
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible,
+.site-nav .active {
+  color: var(--espresso);
+  border-color: var(--caramel);
+}
+
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 44px 24px 64px;
+}
+
+.hero,
+.page-panel {
+  padding: clamp(32px, 7vw, 68px);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.hero {
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--caramel);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.35;
+}
+
+.hero h1,
+.page-panel h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.lead {
+  max-width: 620px;
+  margin: 20px auto 30px;
+  color: var(--muted);
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 28px;
+  color: var(--milk);
+  font-weight: 700;
+  background: var(--coffee);
+  border-radius: 999px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: #6d3920;
+  transform: translateY(-2px);
+}
+
+.menu-section {
+  margin-top: 46px;
+}
+
+.section-heading {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  padding: 26px;
+  background: var(--milk);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.card-label {
+  color: var(--caramel);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.card h3 {
+  margin: 9px 0 8px;
+  font-size: 1.32rem;
+}
+
+.card p {
+  min-height: 82px;
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.card-link {
+  color: var(--coffee);
+  font-weight: 700;
+}
+
+.page-panel .lead {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.content-list,
+.news-list {
+  margin-top: 34px;
+}
+
+.content-item,
+.news-item {
+  padding: 24px 0;
+  border-top: 1px dashed var(--line);
+}
+
+.content-item h2,
+.news-item h2 {
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+}
+
+.content-item p,
+.news-item p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.news-date {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--caramel);
+  font-weight: 700;
+}
+
+.notice {
+  padding: 26px;
+  color: var(--muted);
+  text-align: center;
+  background: #fff9f4;
+  border: 1px dashed #e4bea5;
+  border-radius: 16px;
+}
+
+.site-footer {
+  padding: 34px 20px;
+  color: var(--muted);
+  text-align: center;
+  background: #f7e8dd;
+  border-top: 1px solid var(--line);
+}
+
+.footer-brand {
+  margin: 0 0 6px;
+  color: var(--coffee);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.site-footer p:last-child {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    padding: 30px 16px 26px;
+  }
+
+  .site-logo {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .site-nav {
+    gap: 16px;
+    overflow-x: auto;
+    justify-content: flex-start;
+    white-space: nowrap;
+  }
+
+  main {
+    padding: 26px 16px 48px;
+  }
+
+  .hero,
+  .page-panel {
+    border-radius: 20px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card p {
+    min-height: 0;
+  }
+}
