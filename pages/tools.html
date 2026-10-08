@@ -30,9 +30,35 @@
       <h1>ツール</h1>
       <p class="lead">創作と動画制作をもっと心地よくする、小さな便利道具を用意しています。</p>
       <div class="content-list">
-        <article class="content-item">
-          <h2>切り抜きツール</h2>
-          <p>無料版を開発中。字幕編集、コメント取得、短尺動画作成の機能を予定しています。</p>
+        <article class="content-item tool">
+          <h2>Clip Maker — YouTube 切り抜き</h2>
+          <p>見ている YouTube の場面（最長 60 秒）を、字幕・コメント・隠し四角つきの切り抜き動画にする Chrome 拡張です。横と縦（ショート）に対応。拡張機能だけで mp4 ができます。</p>
+          <div class="shots">
+            <figure><img src="../img/clip-maker/editor.png" alt="編集画面。左に設定、右に出来上がりのプレビュー" loading="lazy"><figcaption>編集画面。出来上がりを再生しながら字幕とコメントを直せます</figcaption></figure>
+            <figure><img src="../img/clip-maker/editor_short.png" alt="縦（ショート）の編集画面。元の動画の上で使う所を枠で囲む" loading="lazy"><figcaption>縦（ショート）は、元の動画のどこを使うかを枠で囲むだけ</figcaption></figure>
+          </div>
+          <h3>できること</h3>
+          <ul class="plain">
+            <li>開始・終了・長さを決めて、字幕・コメント・プレビューを取り込む</li>
+            <li>字幕は YouTube の字幕か、ブラウザ内の音声認識で作る。文は自由に直せる</li>
+            <li>コメント（配信アーカイブのチャット）を右から左に流す。載せない設定も可</li>
+            <li>隠したい所を四角で覆う。音あり / 音なし</li>
+            <li>出来上がりを確認してから「動画を作る」。ダウンロードフォルダに mp4 が保存される</li>
+          </ul>
+          <h3>入れ方</h3>
+          <ol class="steps">
+            <li><a href="https://github.com/coconuts-milk/clip-maker-extension/archive/refs/heads/main.zip">zip をダウンロード</a>して展開する</li>
+            <li>Chrome で <code>chrome://extensions</code> を開き、右上の「デベロッパーモード」を ON にする</li>
+            <li>「パッケージ化されていない拡張機能を読み込む」で、展開した中の <code>extension</code> フォルダを選ぶ</li>
+          </ol>
+          <p class="note">更新するときは、同じ zip をもう一度ダウンロードして展開し、<code>chrome://extensions</code> の更新ボタンを押してください。Chrome の起動時に「デベロッパーモードの拡張機能を無効にしますか」と出ることがあります。「キャンセル」で使い続けられます。</p>
+          <h3>知っておいてほしいこと</h3>
+          <ul class="plain">
+            <li>切り抜く時間のぶんだけ再生しながら録画します（60 秒の切り抜きは約 60 秒）。録画中は YouTube のタブを表示したままにしてください</li>
+            <li>音声認識を選ぶと、初回だけ認識モデル（数百 MB）をダウンロードします。音声は PC の中だけで処理し、外には送りません</li>
+            <li>切り抜き動画の公開には、元動画の権利者の許諾が必要です。利用はご自身の責任でお願いします</li>
+          </ul>
+          <p class="note">使い方の詳しい説明と更新履歴: <a href="https://github.com/coconuts-milk/clip-maker-extension">GitHub</a></p>
         </article>
       </div>
     </section>
