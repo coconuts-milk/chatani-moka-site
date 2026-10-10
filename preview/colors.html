@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>色の案 | 萌香の憩いCAFE</title>
+<style>
+  :root { --bg: #FBF8F3; --panel: #FFFFFF; --ink: #2B3A2F; --muted: #5F6F63; --green: #4F7F5A; --green-dark: #3B6446; --pink: #E8A0B4; --pink-dark: #D9789A; --line: #DCE6DD; }
+  [data-theme="b"] { --bg: #FFFFFF; --panel: #F7FAF8; --ink: #1F2A24; --muted: #566159; --green: #2F6B4F; --green-dark: #24533D; --pink: #F27BA0; --pink-dark: #E05A86; --line: #D8E3DC; }
+  [data-theme="c"] { --bg: #F6FAF4; --panel: #FFFFFF; --ink: #333B35; --muted: #66706A; --green: #6BA368; --green-dark: #558A53; --pink: #F4B6C8; --pink-dark: #E58FAB; --line: #E1EBDE; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.7; }
+  .picker { position: sticky; top: 0; z-index: 9; background: #222; color: #fff; padding: 10px 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 14px; }
+  .picker button { font: inherit; padding: 6px 14px; border-radius: 999px; border: 1px solid #888; background: #333; color: #fff; cursor: pointer; }
+  .picker button.on { background: #fff; color: #222; border-color: #fff; }
+  header { padding: 18px 20px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  .brand { display: flex; align-items: baseline; gap: 14px; justify-content: space-between; flex-wrap: wrap; }
+  .brand .name { font-size: 22px; font-weight: 800; color: var(--green-dark); text-decoration: none; }
+  nav a { color: var(--green-dark); text-decoration: none; font-weight: 700; margin-left: 18px; padding-bottom: 4px; border-bottom: 3px solid transparent; }
+  nav a.active { border-bottom-color: var(--pink); }
+  .hero { padding: 56px 20px 40px; text-align: center; }
+  .hero .eyebrow { color: var(--pink-dark); font-weight: 700; letter-spacing: .18em; font-size: 13px; margin: 0 0 8px; }
+  .hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); margin: 0 0 12px; color: var(--green-dark); line-height: 1.35; }
+  .hero p { color: var(--muted); margin: 0 auto 22px; max-width: 560px; }
+  .btn { display: inline-block; padding: 12px 26px; border-radius: 999px; background: var(--pink); color: #fff; font-weight: 800; text-decoration: none; }
+  .btn:hover { background: var(--pink-dark); }
+  .btn.ghost { background: transparent; color: var(--green-dark); border: 2px solid var(--green); margin-left: 10px; }
+  section { padding: 10px 20px 36px; }
+  h2 { font-size: 20px; color: var(--green-dark); border-left: 6px solid var(--pink); padding-left: 12px; margin: 0 0 16px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+  .card .tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--green-dark); background: color-mix(in srgb, var(--green) 14%, white); padding: 2px 10px; border-radius: 999px; }
+  .card h3 { margin: 10px 0 6px; font-size: 18px; }
+  .card p { margin: 0 0 12px; color: var(--muted); font-size: 15px; }
+  .card a { color: var(--pink-dark); font-weight: 700; text-decoration: none; }
+  .news li { display: grid; grid-template-columns: 110px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+  .news ul { list-style: none; padding: 0; margin: 0; }
+  .news time { color: var(--green); font-weight: 700; font-variant-numeric: tabular-nums; }
+  footer { padding: 26px 20px; text-align: center; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); background: var(--panel); }
+  .swatches { display: flex; gap: 8px; margin: 8px 0 0; }
+  .swatches span { width: 34px; height: 22px; border-radius: 6px; border: 1px solid rgba(0,0,0,.1); }
+</style>
+</head>
+<body>
+<div class="picker">
+  色の案:
+  <button data-t="a" class="on">A 抹茶×桜（クリーム）</button>
+  <button data-t="b">B 深緑×ピンク（白）</button>
+  <button data-t="c">C 若草×桃（淡い緑）</button>
+  <span style="opacity:.7">ボタンで切り替えて比べてください</span>
+</div>
+
+<header><div class="wrap brand">
+  <a class="name" href="#">萌香の憩いCAFE</a>
+  <nav><a href="#" class="active">ホーム</a><a href="#">ツール</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <p class="eyebrow">MOKA CHATANI</p>
+  <h1>ひと息つきながら、<br>つくるものを眺める場所。</h1>
+  <p>AI でつくった作品と、動画づくりに役立つツールを置いています。</p>
+  <a class="btn" href="#">ツールを見る</a><a class="btn ghost" href="#">更新履歴</a>
+  <div class="swatches" style="justify-content:center"><span style="background:var(--green-dark)"></span><span style="background:var(--green)"></span><span style="background:var(--pink)"></span><span style="background:var(--pink-dark)"></span><span style="background:var(--bg)"></span></div>
+</div></div>
+
+<section><div class="wrap">
+  <h2>ツール</h2>
+  <div class="cards">
+    <div class="card"><span class="tag">Chrome 拡張</span><h3>Clip Maker — YouTube 切り抜き</h3><p>見ている場面を、字幕・コメント・隠し四角つきの切り抜き動画に。横とショートに対応。</p><a href="#">くわしく →</a></div>
+    <div class="card"><span class="tag">準備中</span><h3>次のツール</h3><p>ここに次のツールの紹介が入ります。</p><a href="#">くわしく →</a></div>
+  </div>
+</div></section>
+
+<section class="news"><div class="wrap">
+  <h2>更新履歴</h2>
+  <ul>
+    <li><time>2026-10-10</time><span>Clip Maker v0.17.0: コメントのポップアップ表示、画質の選択を追加</span></li>
+    <li><time>2026-10-08</time><span>ツールページを公開</span></li>
+    <li><time>2026-05-26</time><span>サイトを開設</span></li>
+  </ul>
+</div></section>
+
+<footer>© 2026 Moka Chatani</footer>
+<script>
+  document.querySelectorAll(".picker button").forEach(b => b.addEventListener("click", () => {
+    document.documentElement.dataset.theme = b.dataset.t;
+    document.querySelectorAll(".picker button").forEach(x => x.classList.toggle("on", x === b));
+  }));
+</script>
+</body>
+</html>
