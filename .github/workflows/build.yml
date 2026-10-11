@@ -1,0 +1,26 @@
+# content/ が変わったら node build.js で公開ページを作り直して push する。
+# 編集画面（/admin）からの保存はこれで公開ページに反映される。Cloudflare Pages は push された結果をそのまま公開する。
+name: build-site
+on:
+  push:
+    branches: [main]
+    paths: ["content/**", "build.js", "style.css", "site.js", "img/**"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: node build.js
+      - name: 変更があれば push
+        run: |
+          git config user.name "site-builder"
+          git config user.email "site-builder@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "変更なし"; exit 0; fi
+          git commit -m "build: 公開ページを作り直し"
+          git push

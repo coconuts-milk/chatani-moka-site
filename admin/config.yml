@@ -1,0 +1,112 @@
+# 編集画面（Sveltia CMS）の設定。content/ の中身を画面から編集して GitHub に保存する。
+# 保存すると GitHub Actions（.github/workflows/build.yml）が node build.js を実行して公開ページを作り直す。
+backend:
+  name: github
+  repo: coconuts-milk/chatani-moka-site
+  branch: main
+  # GitHub ログインの仲介（Cloudflare Workers に置いた sveltia-cms-auth の URL）。設定手順は admin/SETUP.md
+  base_url: https://REPLACE-WITH-YOUR-WORKER.workers.dev
+  commit_messages:
+    create: "編集画面: {{collection}} に {{slug}} を追加"
+    update: "編集画面: {{collection}} の {{slug}} を更新"
+    delete: "編集画面: {{collection}} の {{slug}} を削除"
+    uploadMedia: "編集画面: 画像 {{path}} を追加"
+    deleteMedia: "編集画面: 画像 {{path}} を削除"
+
+locale: ja
+site_url: https://chatani-moka-site.pages.dev
+display_url: https://chatani-moka-site.pages.dev
+logo_url: https://chatani-moka-site.pages.dev/img/chara_alt.png
+
+media_folder: img/uploads
+public_folder: /img/uploads
+
+collections:
+  - name: site
+    label: サイトの設定
+    files:
+      - name: site
+        label: サイト全体（名前・紹介文・店長・SNS）
+        file: content/site.json
+        format: json
+        fields:
+          - { name: name, label: サイト名, widget: string }
+          - { name: url, label: サイトの URL, widget: string }
+          - { name: tagline, label: ひとこと, widget: string }
+          - { name: hero_lines, label: トップの見出し（1 行ずつ）, widget: list, field: { name: line, label: 行, widget: string } }
+          - { name: hero_text, label: トップの説明文, widget: string }
+          - { name: about_title, label: 「このサイトについて」の見出し, widget: string }
+          - { name: about, label: このサイトについて, widget: markdown }
+          - name: owner
+            label: 店長
+            widget: object
+            fields:
+              - { name: title, label: 肩書き, widget: string }
+              - { name: name, label: 名前, widget: string }
+              - { name: bio, label: 紹介文, widget: text }
+              - name: links
+                label: SNS リンク
+                widget: list
+                fields:
+                  - { name: label, label: 表示名, widget: string }
+                  - { name: url, label: URL, widget: string }
+          - { name: ticker, label: お知らせの帯（流れる文）, widget: string }
+          - { name: footer, label: フッター, widget: string }
+      - name: news
+        label: 更新履歴
+        file: content/news.json
+        format: json
+        fields:
+          - name: items
+            label: 更新履歴（新しい順に並び替わります）
+            widget: list
+            fields:
+              - { name: date, label: 日付, widget: string, hint: "例: 2026-10-11" }
+              - { name: text, label: 内容, widget: string }
+
+  - name: tools
+    label: ツール
+    folder: content/tools
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: ツール名, widget: string }
+      - { name: summary, label: ひとこと（カードに出る短い説明）, widget: text }
+      - { name: image, label: カードの画像, widget: image, required: false }
+      - { name: badge, label: 札（NEW など。空なら出ない）, widget: string, required: false }
+      - { name: order, label: 並び順（小さいほど先）, widget: number, default: 1 }
+      - { name: download, label: ダウンロードの URL, widget: string, required: false }
+      - { name: repo, label: GitHub の URL, widget: string, required: false }
+      - { name: body, label: 本文（使い方・できること・入れ方など）, widget: markdown }
+
+  - name: blog
+    label: 制作ブログ
+    folder: content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} {{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: タイトル, widget: string }
+      - { name: date, label: 日付, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: summary, label: ひとこと（一覧に出る）, widget: text, required: false }
+      - { name: body, label: 本文, widget: markdown }
+
+  - name: works
+    label: 投稿作品
+    folder: content/works
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} {{title}}"
+    fields:
+      - { name: title, label: タイトル, widget: string }
+      - { name: date, label: 日付, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: image, label: 画像, widget: image }
+      - { name: body, label: ひとこと, widget: markdown, required: false }

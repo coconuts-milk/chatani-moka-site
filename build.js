@@ -1,6 +1,6 @@
 // サイトを content/ から組み立てる。使い方: node build.js
 //   content/site.json        … サイト名・このサイトについて・店長・SNS
-//   content/news.md          … 更新履歴（「- 日付 | 内容」を 1 行ずつ）
+//   content/news.json        … 更新履歴（items: [{date, text}]。新しい順に並べ直す）
 //   content/tools/*.md       … ツール（1 つ 1 ファイル。先頭に --- で囲んだ項目、その下に本文）
 //   content/blog/*.md        … 制作ブログ（同上。date 順）
 //   content/works/*.md       … 投稿作品（同上。image が一覧の絵）
@@ -60,7 +60,7 @@ function loadDir(dir) {
 
 // ---- 読み込み ----
 const site = JSON.parse(read(C("site.json")));
-const news = read(C("news.md")).split("\n").map(l => l.match(/^-\s*(\S+)\s*\|\s*(.*)$/)).filter(Boolean).map(m => ({ date: m[1], text: m[2] }));
+const news = JSON.parse(read(C("news.json"))).items.slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 const tools = loadDir("tools").sort((a, b) => Number(a.meta.order || 99) - Number(b.meta.order || 99));
 const blog = loadDir("blog").sort((a, b) => (b.meta.date || "").localeCompare(a.meta.date || ""));
 const works = loadDir("works").sort((a, b) => (b.meta.date || "").localeCompare(a.meta.date || ""));
