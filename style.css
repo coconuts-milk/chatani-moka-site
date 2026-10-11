@@ -99,7 +99,7 @@ ul.list li p { margin: 2px 0 0; color: var(--muted); }
 .profile p { margin: 4px 0 0; color: var(--muted); }
 .profile .links a { display: inline-block; margin: 10px 10px 0 0; padding: 6px 14px; border-radius: 999px; background: var(--green-soft); color: var(--green-dark); font-weight: 700; text-decoration: none; font-size: 14px; }
 
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 300px)); gap: 20px; }
 .gallery figure { margin: 0; padding: 0; overflow: hidden; }
 .gallery img { width: 100%; aspect-ratio: 3 / 4; object-fit: contain; background: var(--green-soft); }
 .gallery figcaption { padding: 12px 16px 16px; }
