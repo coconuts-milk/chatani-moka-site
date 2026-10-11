@@ -95,7 +95,7 @@ ul.list li a { font-weight: 800; font-size: 1.1rem; margin-left: 12px; }
 ul.list li p { margin: 2px 0 0; color: var(--muted); }
 
 .profile { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; }
-.profile .face { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: top; background: linear-gradient(135deg, var(--green-soft), var(--pink-soft)); box-shadow: inset 0 0 0 4px #fff, 0 0 0 3px var(--pink); }
+.profile .face { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: center; background: linear-gradient(135deg, var(--green-soft), var(--pink-soft)); box-shadow: inset 0 0 0 4px #fff, 0 0 0 3px var(--pink); }
 .profile p { margin: 4px 0 0; color: var(--muted); }
 .profile .links a { display: inline-block; margin: 10px 10px 0 0; padding: 6px 14px; border-radius: 999px; background: var(--green-soft); color: var(--green-dark); font-weight: 700; text-decoration: none; font-size: 14px; }
 

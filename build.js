@@ -124,7 +124,7 @@ const home = `
 
   <div class="menu-title"><h2>${esc(owner.title)}</h2><span class="en">OWNER</span></div>
   <div class="panel profile">
-    <img class="face" src="./img/chara_alt.png" alt="">
+    <img class="face" src="./img/face.png" alt="" width="120" height="120">
     <div>
       <strong>${esc(owner.title)} ${esc(owner.name)}</strong>
       <p>${esc(owner.bio)}</p>
