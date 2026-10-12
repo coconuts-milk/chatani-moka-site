@@ -85,6 +85,7 @@ function shell({ title, body, active, depth = 0, description }) {
 <link rel="stylesheet" href="${base}style.css">
 </head>
 <body>
+<div class="petals" aria-hidden="true"></div>
 <header class="top">
   <div class="awning" aria-hidden="true"></div>
   <div class="wrap sign">

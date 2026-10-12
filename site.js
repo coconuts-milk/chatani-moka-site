@@ -3,6 +3,19 @@
   const panes = [...document.querySelectorAll(".pane")];
   const tabs = [...document.querySelectorAll(".tabs a[data-tab]")];
   const ids = panes.map(p => p.id.replace("pane-", ""));
+  // 舞う花びらと葉（軽め）
+  const box = document.querySelector(".petals");
+  if (box && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    for (let i = 0; i < 14; i++) {
+      const p = document.createElement("div");
+      p.className = "petal " + (i % 3 === 0 ? "g" : "p");
+      p.style.left = Math.random() * 100 + "vw";
+      p.style.animationDuration = 14 + Math.random() * 14 + "s";
+      p.style.animationDelay = -Math.random() * 20 + "s";
+      p.style.transform = `scale(${.6 + Math.random() * .8})`;
+      box.appendChild(p);
+    }
+  }
   if (!panes.length) return;
   function show(id, push) {
     if (!ids.includes(id)) id = "home";
