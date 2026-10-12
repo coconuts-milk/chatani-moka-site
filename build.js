@@ -90,7 +90,7 @@ function shell({ title, body, active, depth = 0, description }) {
     <div class="sign-text">
       <span class="open">OPEN</span>
       <a class="name" href="${base}index.html">${esc(site.name)}</a>
-      <p class="bubble">${esc(site.intro)}</p>
+      <p class="bubble">${nl(site.intro)}</p>
     </div>
     <img class="chara" src="${base}img/chara.png" alt="店長 ${esc(owner.name)}">
   </div>
@@ -107,6 +107,7 @@ ${body}
 </html>
 `;
 }
+const nl = t => esc(t).replace(/\n/g, "<br>"); // 改行をそのまま表示する
 const dateOf = m => `<time>${esc(m.date || "")}</time>`;
 
 // ---- ホーム（タブ付き 1 枚）----
@@ -120,7 +121,7 @@ const home = `
       <img class="face" src="./img/face.png" alt="" width="72" height="72">
       <div>
         <strong>${esc(owner.name)}</strong>
-        <p>${esc(owner.bio)}</p>
+        <p>${nl(owner.bio)}</p>
         <p class="links">${owner.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</p>
       </div>
     </div>
