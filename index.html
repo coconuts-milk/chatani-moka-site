@@ -4,81 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>萌香の憩いCAFE</title>
-<meta name="description" content="AI を使って作ったツールや作品を置いていく、小さなカフェです。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Kiwi+Maru:wght@500&display=swap" rel="stylesheet">
+<meta name="description" content="今日も一息つきながら疲れを癒してください。生活に小さな娯楽を提供いたします。">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<div class="petals" aria-hidden="true"></div>
 <header class="top">
-  <div class="wrap bar">
-    <a class="logo" href="./index.html"><span class="cup">☕</span>萌香の憩いCAFE</a>
+  <div class="wrap">
+    <a class="logo" href="./index.html"><img src="./img/face.png" alt="" width="32" height="32">萌香の憩いCAFE</a>
+    <nav class="tabs" aria-label="メニュー">
+      <a href="./index.html#home" data-tab="home" class="active">ホーム</a><a href="./index.html#tools" data-tab="tools" class="">ツール</a><a href="./index.html#blog" data-tab="blog" class="">制作ブログ</a><a href="./index.html#posts" data-tab="posts" class="">投稿</a>
+    </nav>
   </div>
-  <nav class="tabs" aria-label="メニュー"><div class="wrap">
-    <a href="./index.html#home" data-tab="home" class="active">ホーム</a><a href="./index.html#tools" data-tab="tools" class="">ツール</a><a href="./index.html#news" data-tab="news" class="">更新履歴</a><a href="./index.html#blog" data-tab="blog" class="">制作ブログ</a><a href="./index.html#works" data-tab="works" class="">投稿作品</a>
-  </div></nav>
 </header>
 <main class="wrap">
 
 <section class="pane" id="pane-home">
-  <div class="hero">
-    <div class="board">
-      <div class="board-text">
-        <span class="open">OPEN · いらっしゃいませ</span>
-        <h1>今日も一息つきながら疲れを癒してください<br><span class="mark">生活に小さな娯楽を提供いたします</span></h1>
-        <p>AI を使って作ったツールや作品を置いていく、小さなカフェです。</p>
-        <a class="btn" href="#tools" data-go="tools">🍵 ツールを見る</a><a class="btn pink" href="#news" data-go="news">🌸 新着を見る</a>
-      </div>
-      <img class="chara" src="./img/chara.png" alt="店長 茶谷 萌香">
-    </div>
-    <div class="ticker"><span>📢 Clip Maker v0.17.0 を公開しました（コメントのポップアップ表示・画質の選択）　／　ツールは全部無料・Chrome で動きます　／　感想はいつでもどうぞ</span></div>
-  </div>
-
-  <div class="menu-title"><h2>このサイトについて</h2><span class="en">ABOUT</span></div>
-  <div class="panel prose"><p>AI を活用して「こんなの欲しい」を形にしていく場所です。</p>
-<ul><li><strong>ツール</strong>: AI と一緒に作った便利ツールを置いています。動画づくりがラクになるものが中心です</li><li><strong>制作ブログ</strong>: ツールや作品を作る過程で分かったこと、AI の使いどころを書きます</li><li><strong>投稿作品</strong>: AI で作ったイラストや動画を並べます</li></ul>
-<p>どれも無料で、感想や「こんなの欲しい」はいつでも歓迎です。</p></div>
-
-  <div class="menu-title"><h2>店長</h2><span class="en">OWNER</span></div>
-  <div class="panel profile">
-    <img class="face" src="./img/face.png" alt="" width="120" height="120">
+  <div class="intro">
     <div>
-      <strong>店長 茶谷 萌香</strong>
-      <p>茶＝緑、萌＝ピンク。AI でツールと作品を作っています。使ってみた感想や要望は SNS からどうぞ。</p>
-      <div class="links"><a href="https://x.com/grenades_bomb" target="_blank" rel="noopener">X</a><a href="https://github.com/coconuts-milk" target="_blank" rel="noopener">GitHub</a></div>
+      <h1>萌香の憩いCAFE</h1>
+      <p>今日も一息つきながら疲れを癒してください。生活に小さな娯楽を提供いたします。</p>
+    </div>
+    <img class="chara" src="./img/chara.png" alt="店長 茶谷 萌香">
+  </div>
+
+  <h2>このサイトについて</h2>
+  <div class="prose"><p>AI を活用して「こんなの欲しい」を形にしていく場所です。</p>
+<ul><li><strong>ツール</strong>: AI と一緒に作った便利ツールを置いています</li><li><strong>制作ブログ</strong>: ツールを作る過程で分かったこと、AI の使いどころを書きます</li><li><strong>投稿</strong>: 論文など、外に出したものの一覧です</li></ul></div>
+
+  <h2>店長</h2>
+  <div class="profile">
+    <img class="face" src="./img/face.png" alt="" width="80" height="80">
+    <div>
+      <strong>茶谷 萌香</strong>
+      <p>茶＝緑、萌＝ピンク。AI でツールを作っています。感想や要望は SNS からどうぞ。</p>
+      <p class="links"><a href="https://x.com/grenades_bomb" target="_blank" rel="noopener">X</a><a href="https://github.com/coconuts-milk" target="_blank" rel="noopener">GitHub</a></p>
     </div>
   </div>
 
-  <div class="menu-title"><h2>新着</h2><span class="en">LATEST</span></div>
-  <div class="cards">
-    <a class="card" href="./tools/clip-maker.html"><span class="badge">NEW</span><div class="thumb" style="background-image:url('./img/clip-maker/masks_off.png')"></div><div class="body"><h3>Clip Maker — YouTube 切り抜き</h3><p>見ている YouTube の場面（最長 60 秒）を、字幕・コメント・隠し四角つきの切り抜き動画に。横もショートも。拡張機能だけで mp4 ができます。</p><span class="more">くわしく →</span></div></a>
-    <a class="card" href="./blog/2026-10-11-site-renewal.html"><span class="badge green">BLOG</span><div class="thumb ph">📝</div><div class="body"><h3>サイトを作り直しました</h3><p>タブで切り替える形にして、店長キャラも登場。更新は Markdown を書くだけになりました。</p><span class="more">読む →</span></div></a>
-  </div>
+  <h2>更新履歴</h2>
+  <ul class="news"><li><time>2026-10-11</time><span>サイトのデザインを新しくしました（タブで切り替え、店長キャラ）</span></li><li><time>2026-10-10</time><span>Clip Maker v0.17.0: コメントのポップアップ表示、画質の選択、設定ファイルでの再編集を追加</span></li><li><time>2026-10-08</time><span>ツールページを公開。Clip Maker の入れ方を掲載</span></li><li><time>2026-05-26</time><span>サイトを開設</span></li></ul>
 </section>
 
 <section class="pane" id="pane-tools" hidden>
-  <div class="menu-title"><h2>ツール</h2><span class="en">TOOLS</span></div>
-  <div class="cards"><a class="card" href="./tools/clip-maker.html"><span class="badge">NEW</span><div class="thumb" style="background-image:url('./img/clip-maker/masks_off.png')"></div><div class="body"><h3>Clip Maker — YouTube 切り抜き</h3><p>見ている YouTube の場面（最長 60 秒）を、字幕・コメント・隠し四角つきの切り抜き動画に。横もショートも。拡張機能だけで mp4 ができます。</p><span class="more">くわしく →</span></div></a></div>
-</section>
-
-<section class="pane news" id="pane-news" hidden>
-  <div class="menu-title"><h2>更新履歴</h2><span class="en">NEWS</span></div>
-  <ul class="panel"><li><time>2026-10-11</time><span>サイトのデザインを新しくしました（タブで切り替え、店長キャラ）<span class="new">NEW</span></span></li><li><time>2026-10-10</time><span>Clip Maker v0.17.0: コメントのポップアップ表示、画質の選択、設定ファイルでの再編集を追加</span></li><li><time>2026-10-08</time><span>ツールページを公開。Clip Maker の入れ方を掲載</span></li><li><time>2026-05-26</time><span>サイトを開設</span></li></ul>
+  <h2>ツール</h2>
+  <ul class="list"><li><a href="./tools/clip-maker.html">Clip Maker — YouTube 切り抜き</a><p>見ている YouTube の場面（最長 60 秒）を、字幕・コメント・隠し四角つきの切り抜き動画に。横もショートも。拡張機能だけで mp4 ができます。</p></li></ul>
 </section>
 
 <section class="pane" id="pane-blog" hidden>
-  <div class="menu-title"><h2>制作ブログ</h2><span class="en">BLOG</span></div>
-  <ul class="panel list"><li><time>2026-10-11</time><a href="./blog/2026-10-11-site-renewal.html">サイトを作り直しました</a><p>タブで切り替える形にして、店長キャラも登場。更新は Markdown を書くだけになりました。</p></li></ul>
+  <h2>制作ブログ</h2>
+  <ul class="list"><li><time>2026-10-11</time><a href="./blog/2026-10-11-site-renewal.html">サイトを作り直しました</a><p>タブで切り替える形にして、店長キャラも登場。更新は Markdown を書くだけになりました。</p></li></ul>
 </section>
 
-<section class="pane" id="pane-works" hidden>
-  <div class="menu-title"><h2>投稿作品</h2><span class="en">WORKS</span></div>
-  <div class="gallery"><figure class="panel"><img src="./img/chara_alt.png" alt="店長イメージ（試作）" loading="lazy"><figcaption><strong>店長イメージ（試作）</strong><time>2026-10-11</time><p>店長の第一案。緑の三角巾、ベージュのエプロン、ピンクのロングヘア。服装は抹茶系に寄せる予定です。</p></figcaption></figure></div>
+<section class="pane" id="pane-posts" hidden>
+  <h2>投稿</h2>
+  <ul class="list"><li>まだありません。</li></ul>
 </section>
 
 </main>
-<footer><div class="cup">☕</div>© 2026 Moka Chatani</footer>
+<footer>© 2026 Moka Chatani</footer>
 <script src="./site.js"></script>
 </body>
 </html>

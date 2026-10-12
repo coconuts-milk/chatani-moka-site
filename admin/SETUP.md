@@ -17,11 +17,13 @@
 
 1. https://github.com/sveltia/sveltia-cms-auth を開き、README の「Deploy to Cloudflare Workers」ボタンを押す
 2. Cloudflare の画面でそのままデプロイする。出来た Worker の URL（`https://sveltia-cms-auth.〜.workers.dev`）を控える
-3. Worker の「設定」→「変数とシークレット」に次を入れる
+3. Worker の「設定」→「ランタイム変数とシークレット」（プロダクション）に次を入れる。「ビルド」の変数欄ではない（そこに入れても Worker からは見えない）
    - `GITHUB_CLIENT_ID` = 1 で控えた Client ID
    - `GITHUB_CLIENT_SECRET` = 1 で控えた Client secret
    - `ALLOWED_DOMAINS` = `chatani-moka-site.pages.dev`
-4. 1 の callback URL が Worker の URL と合っているか確かめる
+4. 入れたら下に出る「デプロイ」を押す
+5. Worker の「ドメイン」タブで、プロダクションの `…workers.dev` のスイッチがオンになっているか確かめる（オフだと 404 になる）
+6. 1 の callback URL が Worker の URL と合っているか確かめる
 
 ## 3. 設定ファイルに Worker の URL を書く
 

@@ -1,9 +1,9 @@
 // サイトを content/ から組み立てる。使い方: node build.js
-//   content/site.json        … サイト名・このサイトについて・店長・SNS
-//   content/news.json        … 更新履歴（items: [{date, text}]。新しい順に並べ直す）
+//   content/site.json        … サイト名・紹介文・このサイトについて・店長・SNS
+//   content/news.json        … 更新履歴（items: [{date, text}]。新しい順に並べ直す。ホームの下に出る）
 //   content/tools/*.md       … ツール（1 つ 1 ファイル。先頭に --- で囲んだ項目、その下に本文）
 //   content/blog/*.md        … 制作ブログ（同上。date 順）
-//   content/works/*.md       … 投稿作品（同上。image が一覧の絵）
+//   content/posts/*.md       … 投稿（論文などへのリンクとひとこと。date 順）
 // 出来るもの: index.html（タブ付きの 1 枚）、tools/<名前>.html、blog/<名前>.html
 // 外部のライブラリは使わない（Cloudflare Pages でもこのまま動く）。
 const fs = require("fs");
@@ -46,7 +46,7 @@ function frontMatter(src) {
   const m = src.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!m) return { meta: {}, body: src };
   const meta = {};
-  for (const line of m[1].split("\n")) { const k = line.match(/^(\w+):\s*(.*)$/); if (k) meta[k[1]] = k[2].trim(); }
+  for (const line of m[1].split("\n")) { const k = line.match(/^(\w+):\s*(.*)$/); if (k) meta[k[1]] = k[2].trim().replace(/^"(.*)"$/, "$1"); }
   return { meta, body: m[2] };
 }
 function loadDir(dir) {
@@ -63,106 +63,87 @@ const site = JSON.parse(read(C("site.json")));
 const news = JSON.parse(read(C("news.json"))).items.slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 const tools = loadDir("tools").sort((a, b) => Number(a.meta.order || 99) - Number(b.meta.order || 99));
 const blog = loadDir("blog").sort((a, b) => (b.meta.date || "").localeCompare(a.meta.date || ""));
-const works = loadDir("works").sort((a, b) => (b.meta.date || "").localeCompare(a.meta.date || ""));
+const posts = loadDir("posts").sort((a, b) => (b.meta.date || "").localeCompare(a.meta.date || ""));
 
 // ---- 共通の枠 ----
-const TABS = [["home", "ホーム"], ["tools", "ツール"], ["news", "更新履歴"], ["blog", "制作ブログ"], ["works", "投稿作品"]];
+const TABS = [["home", "ホーム"], ["tools", "ツール"], ["blog", "制作ブログ"], ["posts", "投稿"]];
 function shell({ title, body, active, depth = 0, description }) {
   const base = depth ? "../" : "./";
   // 内容の中の「/img/…」のような絶対パスは、ページの深さに合わせた相対パスにする（ファイルを直接開いても見られるように）
-  body = body.replace(/(src=|href=)"\/(?!\/)/g, `$1"${base}`).replace(/url\('\/(?!\/)/g, `url('${base}`);
+  body = body.replace(/(src=|href=)"\/(?!\/)/g, `$1"${base}`);
   return `<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title ? `${title} | ${site.name}` : site.name)}</title>
-<meta name="description" content="${esc(description || site.hero_text)}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Kiwi+Maru:wght@500&display=swap" rel="stylesheet">
+<meta name="description" content="${esc(description || site.intro)}">
 <link rel="stylesheet" href="${base}style.css">
 </head>
 <body>
-<div class="petals" aria-hidden="true"></div>
 <header class="top">
-  <div class="wrap bar">
-    <a class="logo" href="${base}index.html"><span class="cup">☕</span>${esc(site.name)}</a>
+  <div class="wrap">
+    <a class="logo" href="${base}index.html"><img src="${base}img/face.png" alt="" width="32" height="32">${esc(site.name)}</a>
+    <nav class="tabs" aria-label="メニュー">
+      ${TABS.map(([id, label]) => `<a href="${base}index.html#${id}" data-tab="${id}" class="${id === active ? "active" : ""}">${label}</a>`).join("")}
+    </nav>
   </div>
-  <nav class="tabs" aria-label="メニュー"><div class="wrap">
-    ${TABS.map(([id, label]) => `<a href="${base}index.html#${id}" data-tab="${id}" class="${id === active ? "active" : ""}">${label}</a>`).join("")}
-  </div></nav>
 </header>
 <main class="wrap">
 ${body}
 </main>
-<footer><div class="cup">☕</div>${esc(site.footer)}</footer>
+<footer>${esc(site.footer)}</footer>
 <script src="${base}site.js"></script>
 </body>
 </html>
 `;
 }
+const dateOf = m => `<time>${esc(m.date || "")}</time>`;
 
 // ---- ホーム（タブ付き 1 枚）----
 const owner = site.owner;
 const home = `
 <section class="pane" id="pane-home">
-  <div class="hero">
-    <div class="board">
-      <div class="board-text">
-        <span class="open">OPEN · いらっしゃいませ</span>
-        <h1>${site.hero_lines.map((l, i) => i === site.hero_lines.length - 1 ? `<span class="mark">${esc(l)}</span>` : esc(l)).join("<br>")}</h1>
-        <p>${esc(site.hero_text)}</p>
-        <a class="btn" href="#tools" data-go="tools">🍵 ツールを見る</a><a class="btn pink" href="#news" data-go="news">🌸 新着を見る</a>
-      </div>
-      <img class="chara" src="./img/chara.png" alt="店長 ${esc(owner.name)}">
-    </div>
-    <div class="ticker"><span>📢 ${esc(site.ticker)}</span></div>
-  </div>
-
-  <div class="menu-title"><h2>${esc(site.about_title)}</h2><span class="en">ABOUT</span></div>
-  <div class="panel prose">${md(site.about)}</div>
-
-  <div class="menu-title"><h2>${esc(owner.title)}</h2><span class="en">OWNER</span></div>
-  <div class="panel profile">
-    <img class="face" src="./img/face.png" alt="" width="120" height="120">
+  <div class="intro">
     <div>
-      <strong>${esc(owner.title)} ${esc(owner.name)}</strong>
+      <h1>${esc(site.name)}</h1>
+      <p>${esc(site.intro)}</p>
+    </div>
+    <img class="chara" src="./img/chara.png" alt="店長 ${esc(owner.name)}">
+  </div>
+
+  <h2>このサイトについて</h2>
+  <div class="prose">${md(site.about)}</div>
+
+  <h2>${esc(owner.title)}</h2>
+  <div class="profile">
+    <img class="face" src="./img/face.png" alt="" width="80" height="80">
+    <div>
+      <strong>${esc(owner.name)}</strong>
       <p>${esc(owner.bio)}</p>
-      <div class="links">${owner.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>
+      <p class="links">${owner.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</p>
     </div>
   </div>
 
-  <div class="menu-title"><h2>新着</h2><span class="en">LATEST</span></div>
-  <div class="cards">
-    ${tools.slice(0, 1).map(t => toolCard(t, "./")).join("")}
-    ${blog.slice(0, 1).map(b => `<a class="card" href="./blog/${b.slug}.html"><span class="badge green">BLOG</span><div class="thumb ph">📝</div><div class="body"><h3>${esc(b.meta.title)}</h3><p>${esc(b.meta.summary || "")}</p><span class="more">読む →</span></div></a>`).join("")}
-  </div>
+  <h2>更新履歴</h2>
+  <ul class="news">${news.map(n => `<li>${dateOf(n)}<span>${inline(n.text)}</span></li>`).join("")}</ul>
 </section>
 
 <section class="pane" id="pane-tools" hidden>
-  <div class="menu-title"><h2>ツール</h2><span class="en">TOOLS</span></div>
-  <div class="cards">${tools.map(t => toolCard(t, "./")).join("")}</div>
-</section>
-
-<section class="pane news" id="pane-news" hidden>
-  <div class="menu-title"><h2>更新履歴</h2><span class="en">NEWS</span></div>
-  <ul class="panel">${news.map((n, i) => `<li><time>${esc(n.date)}</time><span>${inline(n.text)}${i === 0 ? '<span class="new">NEW</span>' : ""}</span></li>`).join("")}</ul>
+  <h2>ツール</h2>
+  <ul class="list">${tools.map(t => `<li><a href="./tools/${t.slug}.html">${esc(t.meta.title)}</a><p>${esc(t.meta.summary || "")}</p></li>`).join("") || "<li>まだありません。</li>"}</ul>
 </section>
 
 <section class="pane" id="pane-blog" hidden>
-  <div class="menu-title"><h2>制作ブログ</h2><span class="en">BLOG</span></div>
-  <ul class="panel list">${blog.map(b => `<li><time>${esc(b.meta.date || "")}</time><a href="./blog/${b.slug}.html">${esc(b.meta.title)}</a><p>${esc(b.meta.summary || "")}</p></li>`).join("") || "<li>まだ記事がありません。</li>"}</ul>
+  <h2>制作ブログ</h2>
+  <ul class="list">${blog.map(b => `<li>${dateOf(b.meta)}<a href="./blog/${b.slug}.html">${esc(b.meta.title)}</a><p>${esc(b.meta.summary || "")}</p></li>`).join("") || "<li>まだありません。</li>"}</ul>
 </section>
 
-<section class="pane" id="pane-works" hidden>
-  <div class="menu-title"><h2>投稿作品</h2><span class="en">WORKS</span></div>
-  <div class="gallery">${works.map(w => `<figure class="panel"><img src="${w.meta.image || ""}" alt="${esc(w.meta.title)}" loading="lazy"><figcaption><strong>${esc(w.meta.title)}</strong><time>${esc(w.meta.date || "")}</time>${w.html}</figcaption></figure>`).join("") || "<p>まだ作品がありません。</p>"}</div>
+<section class="pane" id="pane-posts" hidden>
+  <h2>投稿</h2>
+  <ul class="list">${posts.map(p => `<li>${dateOf(p.meta)}${p.meta.url ? `<a href="${p.meta.url}" target="_blank" rel="noopener">${esc(p.meta.title)}</a>` : `<strong>${esc(p.meta.title)}</strong>`}${p.meta.place ? `<span class="place">${esc(p.meta.place)}</span>` : ""}<div class="prose small">${p.html}</div></li>`).join("") || "<li>まだありません。</li>"}</ul>
 </section>
 `;
-function toolCard(t, base) {
-  return `<a class="card" href="${base}tools/${t.slug}.html">${t.meta.badge ? `<span class="badge">${esc(t.meta.badge)}</span>` : ""}<div class="thumb" style="background-image:url('${t.meta.image || ""}')"></div><div class="body"><h3>${esc(t.meta.title)}</h3><p>${esc(t.meta.summary || "")}</p><span class="more">くわしく →</span></div></a>`;
-}
-
 fs.writeFileSync(path.join(ROOT, "index.html"), shell({ body: home, active: "home" }));
 
 // ---- ツール・ブログの個別ページ ----
@@ -170,28 +151,28 @@ fs.mkdirSync(path.join(ROOT, "tools"), { recursive: true });
 fs.mkdirSync(path.join(ROOT, "blog"), { recursive: true });
 for (const t of tools) {
   const body = `
-<article class="panel prose article">
-  <p class="crumb"><a href="../index.html#tools">← ツール一覧</a></p>
+<article class="prose article">
+  <p class="crumb"><a href="../index.html#tools">← ツール</a></p>
   <h1>${esc(t.meta.title)}</h1>
   <p class="lead">${esc(t.meta.summary || "")}</p>
-  ${t.meta.download ? `<p><a class="btn" href="${t.meta.download}">⬇ ダウンロード（zip）</a>${t.meta.repo ? `<a class="btn ghost" href="${t.meta.repo}" target="_blank" rel="noopener">GitHub</a>` : ""}</p>` : ""}
+  ${t.meta.download ? `<p><a class="btn" href="${t.meta.download}">ダウンロード（zip）</a>${t.meta.repo ? ` <a class="btn ghost" href="${t.meta.repo}" target="_blank" rel="noopener">GitHub</a>` : ""}</p>` : ""}
   ${t.html}
 </article>`;
   fs.writeFileSync(path.join(ROOT, "tools", `${t.slug}.html`), shell({ title: t.meta.title, body, active: "tools", depth: 1, description: t.meta.summary }));
 }
 for (const b of blog) {
   const body = `
-<article class="panel prose article">
+<article class="prose article">
   <p class="crumb"><a href="../index.html#blog">← 制作ブログ</a></p>
   <h1>${esc(b.meta.title)}</h1>
-  <p class="meta"><time>${esc(b.meta.date || "")}</time></p>
+  <p class="meta">${dateOf(b.meta)}</p>
   ${b.html}
 </article>`;
   fs.writeFileSync(path.join(ROOT, "blog", `${b.slug}.html`), shell({ title: b.meta.title, body, active: "blog", depth: 1, description: b.meta.summary }));
 }
 // 古いページは案内だけ残す
 fs.mkdirSync(path.join(ROOT, "pages"), { recursive: true });
-for (const [old, to] of [["tools.html", "../index.html#tools"], ["news.html", "../index.html#news"], ["works.html", "../index.html#works"]]) {
+for (const [old, to] of [["tools.html", "../index.html#tools"], ["news.html", "../index.html#home"], ["works.html", "../index.html#posts"]]) {
   fs.writeFileSync(path.join(ROOT, "pages", old), `<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0; url=${to}"><link rel="canonical" href="${to}"></head><body><a href="${to}">移動しました</a></body></html>\n`);
 }
-console.log(`index.html, tools ${tools.length}, blog ${blog.length}, works ${works.length}, news ${news.length}`);
+console.log(`index.html, tools ${tools.length}, blog ${blog.length}, posts ${posts.length}, news ${news.length}`);

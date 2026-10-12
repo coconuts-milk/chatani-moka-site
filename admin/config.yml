@@ -16,26 +16,23 @@ backend:
 locale: ja
 site_url: https://chatani-moka-site.pages.dev
 display_url: https://chatani-moka-site.pages.dev
-logo_url: https://chatani-moka-site.pages.dev/img/chara_alt.png
+logo_url: https://chatani-moka-site.pages.dev/img/face.png
 
 media_folder: img/uploads
 public_folder: /img/uploads
 
 collections:
   - name: site
-    label: サイトの設定
+    label: ホーム
     files:
       - name: site
-        label: サイト全体（名前・紹介文・店長・SNS）
+        label: ホームの文章（紹介文・このサイトについて・店長・SNS）
         file: content/site.json
         format: json
         fields:
           - { name: name, label: サイト名, widget: string }
           - { name: url, label: サイトの URL, widget: string }
-          - { name: tagline, label: ひとこと, widget: string }
-          - { name: hero_lines, label: トップの見出し（1 行ずつ）, widget: list, field: { name: line, label: 行, widget: string } }
-          - { name: hero_text, label: トップの説明文, widget: string }
-          - { name: about_title, label: 「このサイトについて」の見出し, widget: string }
+          - { name: intro, label: 一番上の紹介文, widget: text }
           - { name: about, label: このサイトについて, widget: markdown }
           - name: owner
             label: 店長
@@ -50,8 +47,7 @@ collections:
                 fields:
                   - { name: label, label: 表示名, widget: string }
                   - { name: url, label: URL, widget: string }
-          - { name: ticker, label: お知らせの帯（流れる文）, widget: string }
-          - { name: footer, label: フッター, widget: string }
+          - { name: footer, label: 一番下の一行, widget: string }
       - name: news
         label: 更新履歴
         file: content/news.json
@@ -74,9 +70,7 @@ collections:
     summary: "{{title}}"
     fields:
       - { name: title, label: ツール名, widget: string }
-      - { name: summary, label: ひとこと（カードに出る短い説明）, widget: text }
-      - { name: image, label: カードの画像, widget: image, required: false }
-      - { name: badge, label: 札（NEW など。空なら出ない）, widget: string, required: false }
+      - { name: summary, label: ひとこと（一覧に出る短い説明）, widget: text }
       - { name: order, label: 並び順（小さいほど先）, widget: number, default: 1 }
       - { name: download, label: ダウンロードの URL, widget: string, required: false }
       - { name: repo, label: GitHub の URL, widget: string, required: false }
@@ -97,16 +91,18 @@ collections:
       - { name: summary, label: ひとこと（一覧に出る）, widget: text, required: false }
       - { name: body, label: 本文, widget: markdown }
 
-  - name: works
-    label: 投稿作品
-    folder: content/works
+  - name: posts
+    label: 投稿（論文など）
+    folder: content/posts
     create: true
     extension: md
     format: frontmatter
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     summary: "{{date}} {{title}}"
+    sortable_fields: [date, title]
     fields:
       - { name: title, label: タイトル, widget: string }
       - { name: date, label: 日付, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
-      - { name: image, label: 画像, widget: image }
+      - { name: url, label: リンク先（論文の URL など）, widget: string, required: false }
+      - { name: place, label: 掲載先（学会名・サイト名など）, widget: string, required: false }
       - { name: body, label: ひとこと, widget: markdown, required: false }
