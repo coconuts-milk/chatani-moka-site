@@ -57,8 +57,9 @@ h2::after { content: ""; flex: 1; height: 2px; background: repeating-linear-grad
 .prose.small { font-size: .92rem; color: var(--muted); }
 .prose.small p { margin: 2px 0 0; }
 
-.profile { display: grid; grid-template-columns: 72px 1fr; gap: 14px; align-items: center; }
-.profile .face { border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--pink); }
+.profile { overflow: hidden; }
+.profile .face { float: left; margin: 2px 14px 6px 0; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--pink); }
+.profile strong { display: block; font-size: 1.05rem; }
 .profile p { margin: 2px 0 0; color: var(--muted); font-size: .92rem; }
 .profile .links a { display: inline-block; margin: 4px 8px 0 0; padding: 1px 12px; border-radius: 999px; background: var(--green-soft); text-decoration: none; font-weight: 700; font-size: 13px; }
 .profile .links a:hover { background: var(--pink-soft); color: var(--pink-dark); }

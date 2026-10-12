@@ -119,11 +119,9 @@ const home = `
     <h2>${esc(owner.title)}</h2>
     <div class="panel profile">
       <img class="face" src="./img/face.png" alt="" width="72" height="72">
-      <div>
-        <strong>${esc(owner.name)}</strong>
-        <p>${nl(owner.bio)}</p>
-        <p class="links">${owner.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</p>
-      </div>
+      <strong>${esc(owner.name)}</strong>
+      <p>${nl(owner.bio)}</p>
+      <p class="links">${owner.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</p>
     </div>
   </div>
   <div class="col">
