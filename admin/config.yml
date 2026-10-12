@@ -5,7 +5,7 @@ backend:
   repo: coconuts-milk/chatani-moka-site
   branch: main
   # GitHub ログインの仲介（Cloudflare Workers に置いた sveltia-cms-auth の URL）。設定手順は admin/SETUP.md
-  base_url: https://REPLACE-WITH-YOUR-WORKER.workers.dev
+  base_url: https://sveltia-cms-auth.silv4512.workers.dev
   commit_messages:
     create: "編集画面: {{collection}} に {{slug}} を追加"
     update: "編集画面: {{collection}} の {{slug}} を更新"
