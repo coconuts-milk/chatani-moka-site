@@ -38,3 +38,21 @@ https://chatani-moka-site.pages.dev/admin/ を開く → 「GitHub でログイ�
 
 Cloudflare のダッシュボード → Workers & Pages → chatani-moka-site → 「指標（Metrics）」→ 「Web Analytics を有効にする」を押す。
 これだけでサイトに計測用の小さなスクリプトが自動で入り、同じ画面で訪問数・ページ・参照元が見られます（無料・Cookie なし）。
+
+## 目安箱（お問い合わせフォーム）の届け先
+
+目安箱に書かれた内容は、GitHub の非公開リポジトリに Issue として届きます（Issue が立つと GitHub からメールも来ます）。
+一度だけ次の 3 つをやれば動きます。
+
+1. **非公開リポジトリを作る**: https://github.com/new で Repository name を `moka-inbox`、Private を選んで Create。
+2. **書き込み用のトークンを作る**: https://github.com/settings/personal-access-tokens/new
+   - Token name: `moka-inbox`、Expiration: 好きな期間（切れたら作り直し）
+   - Repository access: Only select repositories → `moka-inbox`
+   - Permissions → Repository permissions → **Issues** を **Read and write**
+   - Generate token → 出てきた `github_pat_…` を控える（この画面でしか見られない）
+3. **Cloudflare Pages に入れる**: https://dash.cloudflare.com → Workers & Pages → `chatani-moka-site` → 設定 → 変数とシークレット → プロダクション
+   - `GITHUB_TOKEN` = 2 のトークン（タイプはシークレット）
+   - `INBOX_REPO` = `coconuts-milk/moka-inbox`（タイプはテキスト）
+   - 保存したら「デプロイ」タブで一番上のデプロイの「…」→「再デプロイ」（変数は次のデプロイから効く）
+
+確認: サイトの「目安箱」から試しに送って、`moka-inbox` の Issues に出れば OK。設定前は「まだ準備中です」と出る。

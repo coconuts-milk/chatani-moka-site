@@ -68,7 +68,7 @@ const posts = loadDir("posts").sort((a, b) => (b.meta.date || "").localeCompare(
 
 // ---- 共通の枠 ----
 const owner = site.owner;
-const TABS = [["home", "ホーム"], ["tools", "ツール"], ["blog", "制作ブログ"], ["posts", "投稿"]];
+const TABS = [["home", "ホーム"], ["tools", "ツール"], ["blog", "制作ブログ"], ["posts", "投稿"], ["inbox", "目安箱"]];
 function shell({ title, body, active, depth = 0, description }) {
   const base = depth ? "../" : "./";
   // 内容の中の「/img/…」のような絶対パスは、ページの深さに合わせた相対パスにする（ファイルを直接開いても見られるように）
@@ -145,6 +145,22 @@ const home = `
 <section class="pane" id="pane-posts" hidden>
   <h2>投稿</h2>
   <ul class="list">${posts.map(p => `<li>${dateOf(p.meta)}${p.meta.url ? `<a href="${p.meta.url}" target="_blank" rel="noopener">${esc(p.meta.title)}</a>` : `<strong>${esc(p.meta.title)}</strong>`}${p.meta.place ? `<span class="place">${esc(p.meta.place)}</span>` : ""}<div class="prose small">${p.html}</div></li>`).join("") || "<li>まだありません。</li>"}</ul>
+</section>
+
+<section class="pane" id="pane-inbox" hidden>
+  <h2>目安箱</h2>
+  <div class="panel prose">${nl(site.inbox || "")}</div>
+  <form class="panel inbox" id="inbox-form" autocomplete="off">
+    <label>種類
+      <select name="kind"><option value="bug">バグ</option><option value="improve">改善点</option><option value="wish">欲しいツール</option><option value="other">その他</option></select>
+    </label>
+    <label>対象のツール（任意）<input name="tool" placeholder="例: Clip Maker"></label>
+    <label>お名前（任意）<input name="name" placeholder="ハンドルネームなど"></label>
+    <label>連絡先（任意）<input name="contact" placeholder="返事が欲しいときは X の ID やメールなど"></label>
+    <label>内容<textarea name="message" rows="6" required placeholder="困ったこと、直してほしいこと、欲しいもの など"></textarea></label>
+    <input name="website" class="hp" tabindex="-1" autocomplete="off">
+    <p class="actions"><button class="btn" type="submit">送る</button><span class="status" aria-live="polite"></span></p>
+  </form>
 </section>
 `;
 fs.writeFileSync(path.join(ROOT, "index.html"), shell({ body: home, active: "home" }));

@@ -108,6 +108,17 @@ ul.list li a, ul.list li strong { font-weight: 800; font-size: 1.08rem; }
 ul.list li p { margin: 2px 0 0; color: var(--muted); font-size: .95rem; }
 ul.list .place { margin-left: 10px; color: var(--muted); font-size: .9rem; }
 
+/* 目安箱のフォーム */
+form.inbox { display: grid; gap: 10px; max-width: 640px; }
+form.inbox label { display: grid; gap: 4px; font-weight: 700; font-size: .92rem; color: var(--green-dark); }
+form.inbox input, form.inbox select, form.inbox textarea { font: inherit; font-weight: 500; color: var(--ink); padding: 8px 12px; border: 2px solid var(--line); border-radius: 10px; background: #fff; width: 100%; }
+form.inbox input:focus, form.inbox select:focus, form.inbox textarea:focus { outline: none; border-color: var(--pink-dark); }
+form.inbox .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+form.inbox .actions { display: flex; align-items: center; gap: 14px; margin: 4px 0 0; }
+form.inbox .status { color: var(--muted); font-size: .92rem; }
+form.inbox button { border: 0; cursor: pointer; font: inherit; }
+form.inbox button:disabled { opacity: .6; }
+
 /* 個別ページ */
 .article { padding: 16px 22px; }
 .article h1 { font-size: 1.4rem; color: var(--green-dark); margin: 4px 0 6px; }

@@ -22,7 +22,7 @@
     <img class="chara" src="./img/chara.png" alt="店長 茶谷 萌香">
   </div>
   <nav class="tabs" aria-label="メニュー"><div class="wrap">
-    <a href="./index.html#home" data-tab="home" class="active">ホーム</a><a href="./index.html#tools" data-tab="tools" class="">ツール</a><a href="./index.html#blog" data-tab="blog" class="">制作ブログ</a><a href="./index.html#posts" data-tab="posts" class="">投稿</a>
+    <a href="./index.html#home" data-tab="home" class="active">ホーム</a><a href="./index.html#tools" data-tab="tools" class="">ツール</a><a href="./index.html#blog" data-tab="blog" class="">制作ブログ</a><a href="./index.html#posts" data-tab="posts" class="">投稿</a><a href="./index.html#inbox" data-tab="inbox" class="">目安箱</a>
   </div></nav>
 </header>
 <main class="wrap">
@@ -59,6 +59,22 @@
 <section class="pane" id="pane-posts" hidden>
   <h2>投稿</h2>
   <ul class="list"><li>まだありません。</li></ul>
+</section>
+
+<section class="pane" id="pane-inbox" hidden>
+  <h2>目安箱</h2>
+  <div class="panel prose">ツールの改善点やバグなどがありましたらこちらから連絡いただけますと幸いです。<br>また、欲しいツールの要望などがありましたらいただけますといつか作るかもしれないです。<br>お気軽にお問い合わせください。（目安箱ですので...）</div>
+  <form class="panel inbox" id="inbox-form" autocomplete="off">
+    <label>種類
+      <select name="kind"><option value="bug">バグ</option><option value="improve">改善点</option><option value="wish">欲しいツール</option><option value="other">その他</option></select>
+    </label>
+    <label>対象のツール（任意）<input name="tool" placeholder="例: Clip Maker"></label>
+    <label>お名前（任意）<input name="name" placeholder="ハンドルネームなど"></label>
+    <label>連絡先（任意）<input name="contact" placeholder="返事が欲しいときは X の ID やメールなど"></label>
+    <label>内容<textarea name="message" rows="6" required placeholder="困ったこと、直してほしいこと、欲しいもの など"></textarea></label>
+    <input name="website" class="hp" tabindex="-1" autocomplete="off">
+    <p class="actions"><button class="btn" type="submit">送る</button><span class="status" aria-live="polite"></span></p>
+  </form>
 </section>
 
 </main>

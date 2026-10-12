@@ -47,6 +47,7 @@ collections:
                 fields:
                   - { name: label, label: 表示名, widget: string }
                   - { name: url, label: URL, widget: string }
+          - { name: inbox, label: 目安箱の説明文, widget: text }
           - { name: footer, label: 一番下の一行, widget: string }
       - name: news
         label: 更新履歴

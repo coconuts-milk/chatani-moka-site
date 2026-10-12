@@ -27,4 +27,20 @@
   tabs.forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); show(a.dataset.tab, true); }));
   window.addEventListener("hashchange", () => show(location.hash.slice(1) || "home", false));
   show(location.hash.slice(1) || "home", false);
+
+  // 目安箱の送信（/api/inbox に送る。届け先は functions/api/inbox.js）
+  const form = document.getElementById("inbox-form");
+  if (form) form.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    const st = form.querySelector(".status"), btn = form.querySelector("button");
+    const data = Object.fromEntries(new FormData(form).entries());
+    btn.disabled = true; st.textContent = "送っています…";
+    try {
+      const r = await fetch("./api/inbox", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(data) });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && j.ok) { form.reset(); st.textContent = "届きました。ありがとうございます。"; }
+      else st.textContent = j.error || "送信に失敗しました。";
+    } catch { st.textContent = "送信に失敗しました。通信を確かめてもう一度どうぞ。"; }
+    btn.disabled = false;
+  });
 })();
