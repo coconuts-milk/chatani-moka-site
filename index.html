@@ -5,44 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>萌香の憩いCAFE</title>
 <meta name="description" content="今日も一息つきながら疲れを癒してください。生活に小さな娯楽を提供いたします。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <header class="top">
-  <div class="wrap">
-    <a class="logo" href="./index.html"><img src="./img/face.png" alt="" width="32" height="32">萌香の憩いCAFE</a>
-    <nav class="tabs" aria-label="メニュー">
-      <a href="./index.html#home" data-tab="home" class="active">ホーム</a><a href="./index.html#tools" data-tab="tools" class="">ツール</a><a href="./index.html#blog" data-tab="blog" class="">制作ブログ</a><a href="./index.html#posts" data-tab="posts" class="">投稿</a>
-    </nav>
-  </div>
-</header>
-<main class="wrap">
-
-<section class="pane" id="pane-home">
-  <div class="intro">
-    <div>
-      <h1>萌香の憩いCAFE</h1>
-      <p>今日も一息つきながら疲れを癒してください。生活に小さな娯楽を提供いたします。</p>
+  <div class="awning" aria-hidden="true"></div>
+  <div class="wrap sign">
+    <div class="sign-text">
+      <span class="open">OPEN</span>
+      <a class="name" href="./index.html">萌香の憩いCAFE</a>
+      <p class="bubble">今日も一息つきながら疲れを癒してください。生活に小さな娯楽を提供いたします。</p>
     </div>
     <img class="chara" src="./img/chara.png" alt="店長 茶谷 萌香">
   </div>
+  <nav class="tabs" aria-label="メニュー"><div class="wrap">
+    <a href="./index.html#home" data-tab="home" class="active">ホーム</a><a href="./index.html#tools" data-tab="tools" class="">ツール</a><a href="./index.html#blog" data-tab="blog" class="">制作ブログ</a><a href="./index.html#posts" data-tab="posts" class="">投稿</a>
+  </div></nav>
+</header>
+<main class="wrap">
 
-  <h2>このサイトについて</h2>
-  <div class="prose"><p>AI を活用して「こんなの欲しい」を形にしていく場所です。</p>
+<section class="pane home" id="pane-home">
+  <div class="col">
+    <h2>このサイトについて</h2>
+    <div class="panel prose"><p>AI を活用して「こんなの欲しい」を形にしていく場所です。</p>
 <ul><li><strong>ツール</strong>: AI と一緒に作った便利ツールを置いています</li><li><strong>制作ブログ</strong>: ツールを作る過程で分かったこと、AI の使いどころを書きます</li><li><strong>投稿</strong>: 論文など、外に出したものの一覧です</li></ul></div>
-
-  <h2>店長</h2>
-  <div class="profile">
-    <img class="face" src="./img/face.png" alt="" width="80" height="80">
-    <div>
-      <strong>茶谷 萌香</strong>
-      <p>茶＝緑、萌＝ピンク。AI でツールを作っています。感想や要望は SNS からどうぞ。</p>
-      <p class="links"><a href="https://x.com/grenades_bomb" target="_blank" rel="noopener">X</a><a href="https://github.com/coconuts-milk" target="_blank" rel="noopener">GitHub</a></p>
+    <h2>店長</h2>
+    <div class="panel profile">
+      <img class="face" src="./img/face.png" alt="" width="72" height="72">
+      <div>
+        <strong>茶谷 萌香</strong>
+        <p>茶＝緑、萌＝ピンク。AI でツールを作っています。感想や要望は SNS からどうぞ。</p>
+        <p class="links"><a href="https://x.com/grenades_bomb" target="_blank" rel="noopener">X</a><a href="https://github.com/coconuts-milk" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
     </div>
   </div>
-
-  <h2>更新履歴</h2>
-  <ul class="news"><li><time>2026-10-11</time><span>サイトのデザインを新しくしました（タブで切り替え、店長キャラ）</span></li><li><time>2026-10-10</time><span>Clip Maker v0.17.0: コメントのポップアップ表示、画質の選択、設定ファイルでの再編集を追加</span></li><li><time>2026-10-08</time><span>ツールページを公開。Clip Maker の入れ方を掲載</span></li><li><time>2026-05-26</time><span>サイトを開設</span></li></ul>
+  <div class="col">
+    <h2>更新履歴</h2>
+    <ul class="board"><li><time>2026-10-11</time><span>サイトのデザインを新しくしました（タブで切り替え、店長キャラ）</span><em class="new">NEW</em></li><li><time>2026-10-10</time><span>Clip Maker v0.17.0: コメントのポップアップ表示、画質の選択、設定ファイルでの再編集を追加</span></li><li><time>2026-10-08</time><span>ツールページを公開。Clip Maker の入れ方を掲載</span></li><li><time>2026-05-26</time><span>サイトを開設</span></li></ul>
+  </div>
 </section>
 
 <section class="pane" id="pane-tools" hidden>

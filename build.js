@@ -66,6 +66,7 @@ const blog = loadDir("blog").sort((a, b) => (b.meta.date || "").localeCompare(a.
 const posts = loadDir("posts").sort((a, b) => (b.meta.date || "").localeCompare(a.meta.date || ""));
 
 // ---- 共通の枠 ----
+const owner = site.owner;
 const TABS = [["home", "ホーム"], ["tools", "ツール"], ["blog", "制作ブログ"], ["posts", "投稿"]];
 function shell({ title, body, active, depth = 0, description }) {
   const base = depth ? "../" : "./";
@@ -78,16 +79,24 @@ function shell({ title, body, active, depth = 0, description }) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title ? `${title} | ${site.name}` : site.name)}</title>
 <meta name="description" content="${esc(description || site.intro)}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${base}style.css">
 </head>
 <body>
 <header class="top">
-  <div class="wrap">
-    <a class="logo" href="${base}index.html"><img src="${base}img/face.png" alt="" width="32" height="32">${esc(site.name)}</a>
-    <nav class="tabs" aria-label="メニュー">
-      ${TABS.map(([id, label]) => `<a href="${base}index.html#${id}" data-tab="${id}" class="${id === active ? "active" : ""}">${label}</a>`).join("")}
-    </nav>
+  <div class="awning" aria-hidden="true"></div>
+  <div class="wrap sign">
+    <div class="sign-text">
+      <span class="open">OPEN</span>
+      <a class="name" href="${base}index.html">${esc(site.name)}</a>
+      <p class="bubble">${esc(site.intro)}</p>
+    </div>
+    <img class="chara" src="${base}img/chara.png" alt="店長 ${esc(owner.name)}">
   </div>
+  <nav class="tabs" aria-label="メニュー"><div class="wrap">
+    ${TABS.map(([id, label]) => `<a href="${base}index.html#${id}" data-tab="${id}" class="${id === active ? "active" : ""}">${label}</a>`).join("")}
+  </div></nav>
 </header>
 <main class="wrap">
 ${body}
@@ -101,32 +110,25 @@ ${body}
 const dateOf = m => `<time>${esc(m.date || "")}</time>`;
 
 // ---- ホーム（タブ付き 1 枚）----
-const owner = site.owner;
 const home = `
-<section class="pane" id="pane-home">
-  <div class="intro">
-    <div>
-      <h1>${esc(site.name)}</h1>
-      <p>${esc(site.intro)}</p>
-    </div>
-    <img class="chara" src="./img/chara.png" alt="店長 ${esc(owner.name)}">
-  </div>
-
-  <h2>このサイトについて</h2>
-  <div class="prose">${md(site.about)}</div>
-
-  <h2>${esc(owner.title)}</h2>
-  <div class="profile">
-    <img class="face" src="./img/face.png" alt="" width="80" height="80">
-    <div>
-      <strong>${esc(owner.name)}</strong>
-      <p>${esc(owner.bio)}</p>
-      <p class="links">${owner.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</p>
+<section class="pane home" id="pane-home">
+  <div class="col">
+    <h2>このサイトについて</h2>
+    <div class="panel prose">${md(site.about)}</div>
+    <h2>${esc(owner.title)}</h2>
+    <div class="panel profile">
+      <img class="face" src="./img/face.png" alt="" width="72" height="72">
+      <div>
+        <strong>${esc(owner.name)}</strong>
+        <p>${esc(owner.bio)}</p>
+        <p class="links">${owner.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</p>
+      </div>
     </div>
   </div>
-
-  <h2>更新履歴</h2>
-  <ul class="news">${news.map(n => `<li>${dateOf(n)}<span>${inline(n.text)}</span></li>`).join("")}</ul>
+  <div class="col">
+    <h2>更新履歴</h2>
+    <ul class="board">${news.map((n, i) => `<li>${dateOf(n)}<span>${inline(n.text)}</span>${i === 0 ? '<em class="new">NEW</em>' : ""}</li>`).join("")}</ul>
+  </div>
 </section>
 
 <section class="pane" id="pane-tools" hidden>
