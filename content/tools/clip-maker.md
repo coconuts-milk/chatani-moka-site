@@ -49,3 +49,8 @@ YouTube の 1 場面（最長 60 秒）を、切り抜きできるツールで�
 - 音声認識は初回のみ認識モデル（数百 MB）のダウンロードを行います。このため、音声認識の字幕生成は編集画面表示してから DL 時間 + モデルによる認識時間（数分）後に反映されます。
 - 切り抜き動画を作成する際は事前に元動画の権利者の許諾をいただいてください。ご利用はご自身の責任でお願いいたします。
 - 基本的には個人配信者・小規模な企業配信者を対象とした切り抜きへの使用を想定しています。ニュースターやアップアンドカミングな配信者向けであり、中堅やベテラン配信者対象の切り抜き・企業様のご利用はお控えいただきますと助かります。
+
+## 謝辞
+
+- 本ツールの説明に天道すみれ様（X: [https://x.com/tendou_sumire](https://x.com/tendou_sumire)　YouTube: [https://www.youtube.com/@tendousumire](https://www.youtube.com/@tendousumire)）の動画を使用させていただきました。大変ありがとうございます。
+- 動画元: [https://www.youtube.com/watch?v=b8q7lurQsYo](https://www.youtube.com/watch?v=b8q7lurQsYo)
