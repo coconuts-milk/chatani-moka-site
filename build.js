@@ -25,17 +25,18 @@ function inline(s) {
 function md(src) {
   const lines = src.split("\n");
   const out = [];
-  let i = 0;
+  let i = 0, inRow = false;
   while (i < lines.length) {
     const l = lines[i];
     if (!l.trim()) { i++; continue; }
+    if (l.trim() === ":::") { out.push(out.length && out[out.length - 1] !== "ROW_OPEN" && inRow ? "</div>" : '<div class="row">'); inRow = !inRow; i++; continue; }
     if (l.startsWith("```")) { const buf = []; i++; while (i < lines.length && !lines[i].startsWith("```")) buf.push(lines[i++]); i++; out.push(`<pre><code>${esc(buf.join("\n"))}</code></pre>`); continue; }
     const h = l.match(/^(#{1,3})\s+(.*)/);
     if (h) { out.push(`<h${h[1].length + 1}>${inline(h[2])}</h${h[1].length + 1}>`); i++; continue; }
     if (/^[-*]\s/.test(l)) { const items = []; while (i < lines.length && /^[-*]\s/.test(lines[i])) items.push(lines[i++].replace(/^[-*]\s/, "")); out.push(`<ul>${items.map(x => `<li>${inline(x)}</li>`).join("")}</ul>`); continue; }
     if (/^\d+\.\s/.test(l)) { const items = []; while (i < lines.length && /^\d+\.\s/.test(lines[i])) items.push(lines[i++].replace(/^\d+\.\s/, "")); out.push(`<ol>${items.map(x => `<li>${inline(x)}</li>`).join("")}</ol>`); continue; }
     if (l.startsWith("> ")) { const buf = []; while (i < lines.length && lines[i].startsWith("> ")) buf.push(lines[i++].slice(2)); out.push(`<blockquote>${inline(buf.join(" "))}</blockquote>`); continue; }
-    if (/^!\[/.test(l.trim())) { const m = l.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/); if (m) { out.push(`<figure><img src="${m[2]}" alt="${esc(m[1])}" loading="lazy"><figcaption>${esc(m[1])}</figcaption></figure>`); i++; continue; } }
+    if (/^!\[/.test(l.trim())) { const m = l.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/); if (m) { out.push(`<figure><img src="${m[2]}" alt="${esc(m[1])}" loading="lazy">${m[1] ? `<figcaption>${esc(m[1])}</figcaption>` : ""}</figure>`); i++; continue; } }
     const buf = []; while (i < lines.length && lines[i].trim() && !/^(#{1,3}\s|[-*]\s|\d+\.\s|```|> )/.test(lines[i])) buf.push(lines[i++]);
     out.push(`<p>${inline(buf.join("<br>"))}</p>`.replace(/&lt;br&gt;/g, "<br>"));
   }
@@ -151,13 +152,14 @@ fs.writeFileSync(path.join(ROOT, "index.html"), shell({ body: home, active: "hom
 fs.mkdirSync(path.join(ROOT, "tools"), { recursive: true });
 fs.mkdirSync(path.join(ROOT, "blog"), { recursive: true });
 for (const t of tools) {
+  const btn = t.meta.download ? `<p class="dl"><a class="btn" href="${t.meta.download}">ダウンロード（zip）</a></p>` : "";
+  // 本文の最初の「## 見出し」の直前にダウンロードボタンを置く（画像と簡単な説明 → ダウンロード → 導入方法 → …）
+  const html = t.html.includes("<h3>") ? t.html.replace("<h3>", btn + "<h3>") : t.html + btn;
   const body = `
-<article class="prose article">
+<article class="panel prose article">
   <p class="crumb"><a href="../index.html#tools">← ツール</a></p>
   <h1>${esc(t.meta.title)}</h1>
-  <p class="lead">${esc(t.meta.summary || "")}</p>
-  ${t.meta.download ? `<p><a class="btn" href="${t.meta.download}">ダウンロード（zip）</a>${t.meta.repo ? ` <a class="btn ghost" href="${t.meta.repo}" target="_blank" rel="noopener">GitHub</a>` : ""}</p>` : ""}
-  ${t.html}
+  ${html}
 </article>`;
   fs.writeFileSync(path.join(ROOT, "tools", `${t.slug}.html`), shell({ title: t.meta.title, body, active: "tools", depth: 1, description: t.meta.summary }));
 }

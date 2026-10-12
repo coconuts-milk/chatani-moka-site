@@ -54,6 +54,12 @@ h2::after { content: ""; flex: 1; height: 2px; background: repeating-linear-grad
 .prose figure img { border-radius: 10px; border: 1px solid var(--line); max-height: 60vh; width: auto; }
 .prose figcaption { color: var(--muted); font-size: .9rem; margin-top: 4px; }
 .prose blockquote { margin: 0 0 8px; padding: 6px 12px; border-left: 4px solid var(--green); background: var(--green-soft); border-radius: 0 10px 10px 0; }
+.prose .row { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; margin: 8px 0 12px; }
+.prose .row > figure { flex: 1 1 300px; margin: 0; }
+.prose .row > ol, .prose .row > ul { flex: 1 1 320px; margin: 0; }
+.prose .row > figure img { max-height: none; width: auto; max-width: 100%; }
+.prose .dl { margin: 6px 0 18px; }
+.prose figure img { max-width: 100%; }
 .prose.small { font-size: .92rem; color: var(--muted); }
 .prose.small p { margin: 2px 0 0; }
 
