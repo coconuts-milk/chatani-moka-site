@@ -71,7 +71,7 @@ const TABS = [["home", "ホーム"], ["tools", "ツール"], ["blog", "制作ブ
 function shell({ title, body, active, depth = 0, description }) {
   const base = depth ? "../" : "./";
   // 内容の中の「/img/…」のような絶対パスは、ページの深さに合わせた相対パスにする（ファイルを直接開いても見られるように）
-  body = body.replace(/(src=|href=)"\/(?!\/)/g, `$1"${base}`);
+  body = body.replace(/(src=|href=)"\/(?!\/)/g, `$1"${base}`).replace(/url\('\/(?!\/)/g, `url('${base}`);
   return `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -133,12 +133,12 @@ const home = `
 
 <section class="pane" id="pane-tools" hidden>
   <h2>ツール</h2>
-  <ul class="list">${tools.map(t => `<li><a href="./tools/${t.slug}.html">${esc(t.meta.title)}</a><p>${esc(t.meta.summary || "")}</p></li>`).join("") || "<li>まだありません。</li>"}</ul>
+  <div class="cards">${tools.map(t => `<a class="card" href="./tools/${t.slug}.html">${t.meta.badge ? `<span class="badge">${esc(t.meta.badge)}</span>` : ""}<div class="thumb" style="background-image:url('${t.meta.image || ""}')"></div><div class="body"><h3>${esc(t.meta.title)}</h3><p>${esc(t.meta.summary || "")}</p><span class="more">くわしく →</span></div></a>`).join("") || "<p>まだありません。</p>"}</div>
 </section>
 
 <section class="pane" id="pane-blog" hidden>
   <h2>制作ブログ</h2>
-  <ul class="list">${blog.map(b => `<li>${dateOf(b.meta)}<a href="./blog/${b.slug}.html">${esc(b.meta.title)}</a><p>${esc(b.meta.summary || "")}</p></li>`).join("") || "<li>まだありません。</li>"}</ul>
+  ${blog.length ? `<ul class="list">${blog.map(b => `<li>${dateOf(b.meta)}<a href="./blog/${b.slug}.html">${esc(b.meta.title)}</a><p>${esc(b.meta.summary || "")}</p></li>`).join("")}</ul>` : `<div class="panel soon">準備中です。今後作成予定。</div>`}
 </section>
 
 <section class="pane" id="pane-posts" hidden>

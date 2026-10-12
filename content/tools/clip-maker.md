@@ -1,6 +1,8 @@
 ---
 title: Clip Maker — YouTube 切り抜き
 summary: 見ている YouTube の場面（最長 60 秒）を、字幕・コメント・隠し四角つきの切り抜き動画に。横もショートも。拡張機能だけで mp4 ができます。
+image: /img/clip-maker/masks_off.png
+badge: NEW
 order: 1
 download: https://github.com/coconuts-milk/clip-maker-extension/archive/refs/heads/main.zip
 repo: https://github.com/coconuts-milk/clip-maker-extension

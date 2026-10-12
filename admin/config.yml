@@ -71,6 +71,8 @@ collections:
     fields:
       - { name: title, label: ツール名, widget: string }
       - { name: summary, label: ひとこと（一覧に出る短い説明）, widget: text }
+      - { name: image, label: カードの画像, widget: image, required: false }
+      - { name: badge, label: 札（NEW など。空なら出ない）, widget: string, required: false }
       - { name: order, label: 並び順（小さいほど先）, widget: number, default: 1 }
       - { name: download, label: ダウンロードの URL, widget: string, required: false }
       - { name: repo, label: GitHub の URL, widget: string, required: false }

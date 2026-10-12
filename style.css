@@ -35,6 +35,7 @@ header.top { flex: 0 0 auto; background: var(--panel); border-bottom: 1px solid 
 
 /* 中身: 残りの高さに収める。はみ出す分（ツールの説明など）はこの中だけスクロール */
 main.wrap { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding-top: 14px; padding-bottom: 14px; }
+.pane[hidden] { display: none !important; }
 .pane.home { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
 h2 { font-size: 1.05rem; margin: 6px 0 8px; font-weight: 900; color: var(--green-dark); display: flex; align-items: center; gap: 10px; }
 h2::after { content: ""; flex: 1; height: 2px; background: repeating-linear-gradient(90deg, var(--pink) 0 6px, transparent 6px 12px); }
@@ -63,14 +64,26 @@ h2::after { content: ""; flex: 1; height: 2px; background: repeating-linear-grad
 .profile .links a:hover { background: var(--pink-soft); color: var(--pink-dark); }
 
 /* 更新履歴: 黒板のメニュー */
-ul.board { list-style: none; margin: 0 0 14px; padding: 12px 16px; background: var(--board); color: #f3f6ee; border: 8px solid #b58a5a; border-radius: 6px; box-shadow: var(--shadow); }
+ul.board { list-style: none; margin: 0 0 14px; padding: 12px 16px; max-height: calc(100vh - 330px); min-height: 160px; overflow-y: auto; scrollbar-color: var(--pink) transparent; background: var(--board); color: #f3f6ee; border: 8px solid #b58a5a; border-radius: 6px; box-shadow: var(--shadow); }
 ul.board li { padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,.25); display: grid; grid-template-columns: 92px 1fr auto; gap: 10px; align-items: baseline; font-size: .95rem; }
 ul.board li:last-child { border-bottom: 0; }
 ul.board time { color: var(--pink); font-variant-numeric: tabular-nums; font-size: .88rem; }
 ul.board a { color: #fff; }
 ul.board .new { font-style: normal; font-size: 10px; font-weight: 900; letter-spacing: .1em; color: var(--board); background: var(--pink); padding: 0 8px; border-radius: 999px; }
 
-/* ツール・ブログ・投稿の一覧 */
+/* ツール: 画像つきカード */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.card { position: relative; background: var(--panel); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); text-decoration: none; color: inherit; transition: transform .2s, box-shadow .2s; display: block; }
+.card:hover { transform: translateY(-5px) rotate(-.4deg); box-shadow: 0 16px 36px rgba(78,138,75,.18); }
+.card .thumb { aspect-ratio: 16 / 9; background: var(--green-soft) center/cover no-repeat; }
+.card .body { padding: 14px 18px 16px; }
+.badge { position: absolute; top: 12px; left: 12px; background: var(--pink-dark); color: #fff; font-size: 12px; font-weight: 900; padding: 3px 12px; border-radius: 999px; letter-spacing: .1em; }
+.card h3 { margin: 0 0 4px; font-size: 1.1rem; color: var(--ink); }
+.card p { margin: 0 0 8px; color: var(--muted); font-size: .93rem; }
+.card .more { color: var(--pink-dark); font-weight: 800; }
+.panel.soon { color: var(--muted); text-align: center; padding: 30px; }
+
+/* ブログ・投稿の一覧 */
 ul.list { list-style: none; padding: 0; margin: 0; }
 ul.list li { background: var(--panel); border-radius: 16px; box-shadow: var(--shadow); padding: 12px 18px; margin-bottom: 12px; transition: transform .15s; }
 ul.list li:hover { transform: translateX(4px); }
